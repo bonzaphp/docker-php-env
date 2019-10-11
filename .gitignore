@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+docker-data/.DS_Store
+docker-data/gitlab/.DS_Store
+docker-data/gitlab/logs/*
+docker-data/gitlab/config/*
+docker-data/gitlab/data/*
+docker-data/seafile/*

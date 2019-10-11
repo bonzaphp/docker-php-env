@@ -1,0 +1,31 @@
+Oct 11 02:04:15 seafile mysqld_safe: Starting mysqld daemon with databases from /var/lib/mysql
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] /usr/sbin/mysqld (mysqld 10.1.34-MariaDB-0ubuntu0.18.04.1) starting as process 286 ...
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+Oct 11 02:04:15 seafile mysqld: 
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: The InnoDB memory heap is disabled
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Compressed tables use zlib 1.2.11
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Using Linux native AIO
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Using SSE crc32 instructions
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Completed initialization of buffer pool
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Highest supported file format is Barracuda.
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: 128 rollback segment(s) are active.
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB: Waiting for purge to start
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.39-83.1 started; log sequence number 1616717
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139894961731328 [Note] InnoDB: Dumping buffer pool(s) not yet started
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] Plugin 'FEEDBACK' is disabled.
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] Server socket created on IP: '127.0.0.1'.
+Oct 11 02:04:15 seafile mysqld: 2019-10-11  2:04:15 139895644261504 [Note] /usr/sbin/mysqld: ready for connections.
+Oct 11 02:04:15 seafile mysqld: Version: '10.1.34-MariaDB-0ubuntu0.18.04.1'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  Ubuntu 18.04
+Oct 11 02:04:16 seafile mysqld: 2019-10-11  2:04:16 139895643404032 [Note] /usr/sbin/mysqld: Normal shutdown
+Oct 11 02:04:16 seafile mysqld: 2019-10-11  2:04:16 139895643404032 [Note] Event Scheduler: Purging the queue. 0 events
+Oct 11 02:04:16 seafile mysqld: 2019-10-11  2:04:16 139895020439296 [Note] InnoDB: FTS optimize thread exiting.
+Oct 11 02:04:16 seafile mysqld: 2019-10-11  2:04:16 139895643404032 [Note] InnoDB: Starting shutdown...
+Oct 11 02:04:16 seafile mysqld: 2019-10-11  2:04:16 139895643404032 [Note] InnoDB: Waiting for page_cleaner to finish flushing of buffer pool
+Oct 11 02:04:18 seafile mysqld: 2019-10-11  2:04:18 139895643404032 [Note] InnoDB: Shutdown completed; log sequence number 1616727
+Oct 11 02:04:18 seafile mysqld: 2019-10-11  2:04:18 139895643404032 [Note] /usr/sbin/mysqld: Shutdown complete
+Oct 11 02:04:18 seafile mysqld: 
+Oct 11 02:04:18 seafile mysqld_safe: mysqld from pid file /var/run/mysqld/mysqld.pid ended

@@ -1,0 +1,104 @@
+version: '2'
+services:
+    gitlab:
+      image: 'bonzaphp/gitlab-ce-zh:11.1.4'
+      container_name: gitlab
+      restart: unless-stopped
+      hostname: 'gitlab.example.com'
+      environment:
+        TZ: 'Asia/Shanghai'
+        GITLAB_OMNIBUS_CONFIG: |
+          external_url 'http://gitlab.example.com'
+          gitlab_rails['time_zone'] = 'Asia/Shanghai'
+          sidekiq['concurrency'] = 5
+          unicorn['worker_processes'] = 2
+          #配置下面，需要配置smtp_tls
+          ##注意gitlab_rails['smtp_tls'] 这个是设定为true
+          gitlab_rails['smtp_enable'] = true
+          gitlab_rails['smtp_address'] = "smtp.mxhichina.com"
+          gitlab_rails['smtp_port'] = 465
+          gitlab_rails['smtp_user_name'] = "******@bonza.cn"
+          gitlab_rails['smtp_password'] = "******"
+          gitlab_rails['smtp_domain'] = "smtp.mxhichina.com"
+          gitlab_rails['smtp_authentication'] = "login"
+          gitlab_rails['smtp_enable_starttls_auto'] = true
+          gitlab_rails['smtp_tls'] = true
+          #配置邮箱来源， 与展示的名称
+          gitlab_rails['gitlab_email_enabled'] = true
+          gitlab_rails['gitlab_email_from'] = '******@bonza.cn'
+          gitlab_rails['gitlab_email_display_name'] = 'Gitlab'
+      ports:
+        - '6080:80'
+        - '443:443'
+        - '22:22'
+      volumes:
+        - gitlab-config:/etc/gitlab
+        - gitlab-data:/var/opt/gitlab
+        - gitlab-logs:/var/log/gitlab
+      networks:
+        - gitlab-jenkins-net
+    jenkins:
+      image: 'jenkins/jenkins:lts'
+      container_name: jenkins
+      restart: unless-stopped
+      hostname: 'jenkins.example.com'
+      environment:
+        JAVA_OPTS: "-Duser.timezone=Asia/Shanghai"
+      ports:
+        - '7080:8080'
+        - '50000:50000'
+      volumes:
+        - jenkins:/var/jenkins_home
+        # - /etc/sysconfig/clock:/etc/sysconfig/clock
+        # - /etc/localtime:/etc/localtime:ro
+      networks:
+        - gitlab-jenkins-net
+    seafile:
+      image: 'seafileltd/seafile:latest'
+      container_name: seafile
+      restart: unless-stopped
+      hostname: 'seafile.example.com'
+      environment:
+        SEAFILE_SERVER_LETSENCRYPT: 'true' #如果是内网访问，请设置为false
+        SEAFILE_ADMIN_EMAIL: 'root'
+        SEAFILE_ADMIN_PASSWORD: 'bonzaphp'
+      ports:
+        - '6680:80'
+        - '6443:443'
+      volumes:
+        - seafile:/shared
+volumes:
+    gitlab-config: 
+        driver: local
+        driver_opts:
+            type: bind
+            o: bind
+            device: ${PWD}/../docker-data/gitlab/config 
+    gitlab-data: 
+        driver: local
+        driver_opts:
+            type: bind
+            o: bind
+            device: ${PWD}/../docker-data/gitlab/data
+    gitlab-logs: 
+        driver: local
+        driver_opts:
+            type: bind
+            o: bind
+            device: ${PWD}/../docker-data/gitlab/logs
+    jenkins: 
+        driver: local
+        driver_opts:
+            type: bind
+            o: bind
+            device: ${PWD}/../docker-data/jenkins
+    seafile: 
+        driver: local
+        driver_opts:
+            type: bind
+            o: bind
+            device: ${PWD}/../docker-data/seafile
+networks:
+    gitlab-jenkins-net:
+      driver: bridge
+
