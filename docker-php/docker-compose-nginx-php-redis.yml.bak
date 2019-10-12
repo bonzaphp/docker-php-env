@@ -2,7 +2,7 @@ version: '2'
 services:
     redis:
         #build:
-        #    context: https://github.com/xiaoyawl/docker-redis.git
+        #    context: https://github.com/bonzaphp/docker-redis.git
         container_name: redis_server
         restart: always
         command: ["redis-server", "/etc/redis.conf"]
@@ -18,7 +18,7 @@ services:
         - /data/redis:/data/redis:Z
     php:
         #build:
-        #    context: https://github.com/xiaoyawl/docker-php.git
+        #    context: https://github.com/bonzaphp/docker-php.git
         container_name: php_server
         restart: always
         #privileged: true
@@ -34,7 +34,7 @@ services:
         - /data/wwwroot:/data/wwwroot:rw
     nginx:
         #build:
-        #    context: https://github.com/xiaoyawl/docker-nginx.git
+        #    context: https://github.com/bonzaphp/docker-nginx.git
         container_name: nginx_server
         restart: always
         #privileged: true
