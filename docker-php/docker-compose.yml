@@ -1,131 +1,167 @@
 version: '3'
 services:
-    redis:
-        build:
-           context: ./redis
-        container_name: redis_server
-        restart: always
-        # command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
-        privileged: true
-        image: bonzaphp/redis:5.0
-        ports:
-          - '6389:6379'
-        volumes:
-          - redis-conf:/usr/local/etc/redis
-          - redis:/data
-        environment:
-           TZ: 'Asia/Shanghai'
-        networks:
-          - docker-php-net
-    php:
-        build: 
-           context: ./php
-        #    context: https://github.com/bonzaphp/docker-php.git
-        container_name: php_server
-        restart: always
-        #privileged: true
-        image: bonzaphp/php:fpm-7.2
-        ports:
-           - "9000:9000"
-        links:
-           - "redis:redis_server"
-           - "mysql:mysql_server"
-        depends_on:  
-           - "redis" #服务名称
-           - "mysql" #mysql服务
-        environment: 
-           TZ: 'Asia/Shanghai'
-        volumes:
-           - www:/var/www/html
-           - php-conf:/usr/local/etc/php
-        networks:
-           - docker-php-net
-    nginx:
-        #build:
-        #    context: https://github.com/bonzaphp/docker-nginx.git
-        container_name: nginx_server
-        restart: always
-        environment: 
-           TZ: 'Asia/Shanghai'
-        privileged: true
-        image: nginx
-        ports:
-          - "7777:80"
-          - "8443:443"
-        links:
-          - "php:php_server"
-        volumes:
-          - www:/usr/share/nginx/html
-          - nginx:/etc/nginx
-          - nginx-logs:/var/log/nginx
-        networks:
-          - docker-php-net
-    mysql:
-        container_name: mysql_server
-        image: mysql:5.7
-        restart: unless-stopped
-        environment:
-          MYSQL_ROOT_PASSWORD: Wchh73cHsgnsZ4onIZyc  # root账户的密码
-          TZ: 'Asia/Shanghai'
-        ports:
-          - 3308:3306
-        volumes:
-          - mysql:/var/lib/mysql
-          - mysql-conf:/etc/mysql/conf.d
-          # - /etc/sysconfig/clock:/etc/sysconfig/clock
-          # - /etc/localtime:/etc/localtime:ro
-          # - /usr/share/zoneinfo:/usr/share/zoneinfo
-        networks:
-          - docker-php-net 
+  redis:
+    build:
+      context: ${PWD}/redis
+    container_name: redis_server
+    restart: always
+    # command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    privileged: true
+    image: bonzaphp/redis:5.0
+    ports:
+      - '6389:6379'
+    volumes:
+      - redis-conf:/usr/local/etc/redis
+      - redis:/data
+    environment:
+      TZ: 'Asia/Shanghai'
+    networks:
+      - docker-php-net
+  php:
+    build:
+      context: ${PWD}/php
+    #    context: https://github.com/bonzaphp/docker-php.git
+    container_name: php_server
+    restart: always
+    #privileged: true
+    image: bonzaphp/php:fpm-7.2
+    ports:
+      - "9000:9000"
+    links:
+      - "redis:redis_server"
+      - "mysql:mysql_server"
+    depends_on:
+      - "redis" #服务名称
+      - "mysql" #mysql服务
+    environment:
+      TZ: 'Asia/Shanghai'
+    volumes:
+      - backed-www:/var/www/html
+      - php-conf:/usr/local/etc/php
+    networks:
+      - docker-php-net
+  nginx:
+    #build:
+    #    context: https://github.com/bonzaphp/docker-nginx.git
+    container_name: nginx_server
+    restart: always
+    environment:
+      TZ: 'Asia/Shanghai'
+    privileged: true
+    image: nginx
+    ports:
+      - "7777:80"
+      - "8443:443"
+    links:
+      - "php:php_server"
+    volumes:
+      - backed-www:/usr/share/nginx/html
+      - backed-nginx:/etc/nginx
+      - backed-logs:/var/log/nginx
+    networks:
+      - docker-php-net
+  mysql:
+    container_name: mysql_server
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: Wchh73cHsgnsZ4onIZyc  # root账户的密码
+      TZ: 'Asia/Shanghai'
+    ports:
+      - 3308:3306
+    volumes:
+      - mysql:/var/lib/mysql
+      - mysql-conf:/etc/mysql/conf.d
+      # - /etc/sysconfig/clock:/etc/sysconfig/clock
+      # - /etc/localtime:/etc/localtime:ro
+      # - /usr/share/zoneinfo:/usr/share/zoneinfo
+    networks:
+      - docker-php-net
+  front:
+    container_name: front_server
+    restart: always
+    environment:
+      TZ: 'Asia/Shanghai'
+    privileged: true
+    image: nginx
+    ports:
+      - "8555:80"
+      - "9443:443"
+    links:
+      - "php:php_server"
+    volumes:
+      - fronted-www:/usr/share/nginx/html
+      - fronted-nginx:/etc/nginx
+      - fronted-logs:/var/log/nginx
+    networks:
+      - docker-php-net
 networks:
-    docker-php-net:
-      driver: bridge
+  docker-php-net:
+    driver: bridge
 volumes:
-    nginx:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/nginx
-    nginx-logs:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/nginx/logs
-    redis:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/redis
-    redis-conf:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/conf/redis
-    php-conf:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/conf/php
-    www:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/www
-    mysql-conf:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/conf/mysql/conf.d
-    mysql:
-        driver: local
-        driver_opts:
-            type: bind
-            o: bind
-            device: ${PWD}/../docker-data/mysql
+  backed-nginx:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/conf/backed-nginx
+  backed-logs:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/conf/backed-nginx/logs
+  backed-www:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/backed-www
+  fronted-nginx:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/conf/fronted-nginx
+  fronted-logs:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/conf/fronted-nginx/logs
+  fronted-www:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/fronted-www
+  redis:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/redis
+  redis-conf:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/conf/redis
+  php-conf:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/conf/php
+  mysql-conf:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/conf/mysql/conf.d
+  mysql:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: ${PWD}/../docker-data/mysql

@@ -6,3 +6,8 @@ docker-data/gitlab/logs/*
 docker-data/gitlab/config/*
 docker-data/gitlab/data/*
 docker-data/seafile/*
+docker-data/mysql/*
+/docker-data/conf/fronted-nginx/logs/access.log
+/docker-data/conf/fronted-nginx/logs/error.log
+/docker-data/conf/backed-nginx/logs/access.log
+/docker-data/conf/backed-nginx/logs/error.log
