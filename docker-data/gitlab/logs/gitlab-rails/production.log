@@ -1,5 +1,0 @@
-Started GET "/" for  at 2019-10-11 03:18:21 +0000
-Processing by RootController#index as HTML
-Redirected to http://example.org/users/sign_in
-Filter chain halted as :redirect_unlogged_user rendered or redirected
-Completed 302 Found in 6ms (ActiveRecord: 0.0ms)

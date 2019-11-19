@@ -1,2 +1,0 @@
-# Logfile created on 2019-10-11 03:17:09 +0000 by logger.rb/56815
-{"method":"GET","path":"/","format":"html","controller":"RootController","action":"index","status":302,"duration":9.28,"view":0.0,"db":0.0,"location":"http://example.org/users/sign_in","time":"2019-10-11T03:18:22.820Z","params":[],"remote_ip":null,"user_id":null,"username":null}

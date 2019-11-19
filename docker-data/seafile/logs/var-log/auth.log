@@ -1,2 +1,0 @@
-Oct 11 03:17:01 seafile CRON[95]: pam_unix(cron:session): session opened for user root by (uid=0)
-Oct 11 03:17:01 seafile CRON[95]: pam_unix(cron:session): session closed for user root
