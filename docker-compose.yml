@@ -104,64 +104,64 @@ volumes:
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/conf/backed-nginx
+      device: ${PWD}/docker-data/conf/backed-nginx
   backed-logs:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/conf/backed-nginx/logs
+      device: ${PWD}/docker-data/conf/backed-nginx/logs
   backed-www:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/backed-www
+      device: ${PWD}/docker-data/backed-www
   fronted-nginx:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/conf/fronted-nginx
+      device: ${PWD}/docker-data/conf/fronted-nginx
   fronted-logs:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/conf/fronted-nginx/logs
+      device: ${PWD}/docker-data/conf/fronted-nginx/logs
   fronted-www:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/fronted-www
+      device: ${PWD}/docker-data/fronted-www
   redis:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/redis
+      device: ${PWD}/docker-data/redis
   redis-conf:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/conf/redis
+      device: ${PWD}/docker-data/conf/redis
   php-conf:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/conf/php
+      device: ${PWD}/docker-data/conf/php
   mysql-conf:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/conf/mysql/conf.d
+      device: ${PWD}/docker-data/conf/mysql/conf.d
   mysql:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: ${PWD}/../docker-data/mysql
+      device: ${PWD}/docker-data/mysql
